@@ -270,7 +270,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             allowFullScreen
             allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
             loading="eager"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-popups-to-escape-sandbox allow-downloads"
           ></iframe>
         </div>
       </div>

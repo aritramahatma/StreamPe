@@ -124,10 +124,11 @@ export function getVideoEmbedUrl(
   seasonNumber?: number,
   episodeNumber?: number
 ): string {
+  const baseUrl = 'https://autoembed.to/movie/tmdb';
   if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `https://vidsrc.xyz/embed/tv?tmdb=${tmdbId}&season=${seasonNumber}&episode=${episodeNumber}`;
+    return `${baseUrl}/${tmdbId}-${seasonNumber}-${episodeNumber}`;
   }
-  return `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
+  return `${baseUrl}/${tmdbId}`;
 }
 
 // Movie image URLs
