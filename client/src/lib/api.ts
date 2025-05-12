@@ -124,9 +124,9 @@ export function getVideoEmbedUrl(
   seasonNumber?: number,
   episodeNumber?: number
 ): string {
-  const baseUrl = 'https://vidsrc.to/embed';
+  const baseUrl = 'https://2embed.org/embed';
   if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `${baseUrl}/tv?tmdb=${tmdbId}&season=${seasonNumber}&episode=${episodeNumber}`;
+    return `${baseUrl}/series?tmdb=${tmdbId}&sea=${seasonNumber}&epi=${episodeNumber}`;
   }
   return `${baseUrl}/movie?tmdb=${tmdbId}`;
 }
