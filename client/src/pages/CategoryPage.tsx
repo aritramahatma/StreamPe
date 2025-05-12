@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useRoute, useLocation } from 'wouter';
 import { Filter as FilterIcon } from 'lucide-react';
@@ -110,28 +111,23 @@ const CategoryPage: React.FC = () => {
         </h1>
 
         {/* Media Type Toggle */}
-        <div className="flex mb-6">
-          <button 
-            className={`px-4 py-2 ${mediaType === 'movie' ? 'bg-primary text-black' : 'bg-[#1f1f1f] text-white'} rounded-l-lg`}
-            onClick={() => handleMediaTypeChange('movie')}
-          >
-            Movies
-          </button>
-          <button 
-            className={`px-4 py-2 ${mediaType === 'tv' ? 'bg-primary text-black' : 'bg-[#1f1f1f] text-white'} rounded-r-lg`}
-            onClick={() => handleMediaTypeChange('tv')}
-          >
-            TV Shows
-          </button>
-        </div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex">
+            <button 
+              className={`px-4 py-2 ${mediaType === 'movie' ? 'bg-primary text-black' : 'bg-[#1f1f1f] text-white'} rounded-l-lg`}
+              onClick={() => handleMediaTypeChange('movie')}
+            >
+              Movies
+            </button>
+            <button 
+              className={`px-4 py-2 ${mediaType === 'tv' ? 'bg-primary text-black' : 'bg-[#1f1f1f] text-white'} rounded-r-lg`}
+              onClick={() => handleMediaTypeChange('tv')}
+            >
+              TV Shows
+            </button>
+          </div>
 
-        <GenreFilter 
-          mediaType={mediaType}
-          selectedGenreId={selectedGenre} 
-          onGenreSelect={handleGenreSelect}
-        />
-
-        <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white py-2 px-4 rounded-lg transition">
                 <FilterIcon size={18} />
@@ -142,7 +138,6 @@ const CategoryPage: React.FC = () => {
               <DropdownMenuLabel>Filter Options</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <div className="p-3">
-
                 <div className="mb-4">
                   <label className="text-sm text-[#e0e0e0] mb-2 block">Release Year</label>
                   <select 
@@ -184,6 +179,12 @@ const CategoryPage: React.FC = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+
+        <GenreFilter 
+          mediaType={mediaType}
+          selectedGenreId={selectedGenre} 
+          onGenreSelect={handleGenreSelect}
+        />
 
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
