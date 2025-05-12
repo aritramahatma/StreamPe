@@ -17,7 +17,7 @@ import { Genre, Movie, TVShow, FilterOptions, MediaType } from '@/lib/types';
 const CategoryPage: React.FC = () => {
   const [, params] = useRoute('/categories/:mediaType?');
   const [, setLocation] = useLocation();
-  
+
   const mediaType: MediaType = (params?.mediaType as MediaType) || 'movie';
   const [location] = useLocation();
   const genreParam = new URLSearchParams(location.split('?')[1]).get('genre');
@@ -26,43 +26,43 @@ const CategoryPage: React.FC = () => {
   );
   const [selectedYear, setSelectedYear] = useState<number | undefined>();
   const [sortBy, setSortBy] = useState<FilterOptions['sortBy']>('popularity');
-  
+
   const [media, setMedia] = useState<(Movie | TVShow)[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Track page view
         trackAnalytics({ 
           event: 'page_view',
           mediaType
         });
-        
+
         // Fetch genres if not already loaded
         if (genres.length === 0) {
           const genresData = await getGenres(mediaType);
           setGenres(genresData.genres);
         }
-        
+
         // Fetch media with filters
         const filterOptions: Partial<FilterOptions> = {
           sortBy,
         };
-        
+
         if (selectedGenre) {
           filterOptions.genres = [selectedGenre];
         }
-        
+
         if (selectedYear) {
           filterOptions.year = selectedYear;
         }
-        
+
         const response = await discoverMedia(mediaType, filterOptions);
         setMedia(response.results);
       } catch (error) {
@@ -72,27 +72,27 @@ const CategoryPage: React.FC = () => {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [mediaType, selectedGenre, selectedYear, sortBy]);
-  
+
   const handleGenreSelect = (genreId?: number) => {
     setSelectedGenre(genreId);
   };
-  
+
   const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const year = e.target.value ? parseInt(e.target.value) : undefined;
     setSelectedYear(year);
   };
-  
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value as FilterOptions['sortBy']);
   };
-  
+
   const handleMediaTypeChange = (type: MediaType) => {
     setLocation(`/categories/${type}`);
   };
-  
+
   const getYearOptions = () => {
     const currentYear = new Date().getFullYear();
     const years = [];
@@ -108,7 +108,7 @@ const CategoryPage: React.FC = () => {
         <h1 className="text-3xl font-bold mb-6">
           Browse {mediaType === 'movie' ? 'Movies' : 'TV Shows'}
         </h1>
-        
+
         {/* Media Type Toggle */}
         <div className="flex mb-6">
           <button 
@@ -124,15 +124,14 @@ const CategoryPage: React.FC = () => {
             TV Shows
           </button>
         </div>
-        
+
         <GenreFilter 
           mediaType={mediaType}
           selectedGenreId={selectedGenre} 
           onGenreSelect={handleGenreSelect}
         />
-        
-        <div className="flex justify-end mb-6">
-          <DropdownMenu>
+
+        <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white py-2 px-4 rounded-lg transition">
                 <FilterIcon size={18} />
@@ -143,6 +142,7 @@ const CategoryPage: React.FC = () => {
               <DropdownMenuLabel>Filter Options</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <div className="p-3">
+
                 <div className="mb-4">
                   <label className="text-sm text-[#e0e0e0] mb-2 block">Release Year</label>
                   <select 
@@ -156,7 +156,7 @@ const CategoryPage: React.FC = () => {
                     ))}
                   </select>
                 </div>
-                
+
                 <div className="mb-4">
                   <label className="text-sm text-[#e0e0e0] mb-2 block">Sort Results By</label>
                   <select 
@@ -169,7 +169,7 @@ const CategoryPage: React.FC = () => {
                     <option value="release_date">Release Date (Newest)</option>
                   </select>
                 </div>
-                
+
                 <button 
                   onClick={() => {
                     setSelectedYear(undefined);
@@ -184,7 +184,7 @@ const CategoryPage: React.FC = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        
+
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {[...Array(12)].map((_, index) => (
