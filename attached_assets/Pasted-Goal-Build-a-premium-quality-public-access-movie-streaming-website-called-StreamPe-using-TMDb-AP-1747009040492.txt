@@ -1,0 +1,144 @@
+Goal: Build a premium-quality, public-access movie streaming website called StreamPe using:
+
+TMDb API (7f325eb836c6c510bab73c65fa33d484) for content metadata
+
+StreamPe API (4789fec446eaf7997af0) for custom app logic (e.g., analytics, recommendations, fallback handling)
+
+VidSrc API for full in-app video streaming
+
+🏷️ Brand Identity
+Name: StreamPe
+
+Logo: Bold sans-serif text in all caps with optional play icon or filmstrip
+
+Color Scheme:
+
+Primary: #f5c518 (IMDb-style Yellow)
+
+Background: #121212 (Dark)
+
+Text: #ffffff
+
+Accent: #1f1f1f and #e0e0e0 for hover/text contrast
+
+🔧 Features & Functional Requirements
+📚 1. Homepage
+Trending, Now Playing, Top Rated, and Upcoming carousels (from TMDb)
+
+Hero banner with a featured title
+
+Hover previews with play icon, rating, and trailer tooltip
+
+🔍 2. Search
+Live autocomplete using TMDb API
+
+Search both movies and TV shows
+
+Show poster, rating, year, and quick link to details page
+
+🎞️ 3. Movie & TV Details Page
+Poster, title, genres, rating, runtime, release date
+
+Cast list (carousel with actor images)
+
+Overview and TMDb reviews
+
+Trailer embed (YouTube via TMDb)
+
+Watch Now button that loads in-app player
+
+📺 4. Watch Page (In-App Streaming)
+Embed player using VidSrc format:
+
+Movies: https://vidsrc.to/embed/movie/{tmdb_id}
+
+TV: https://vidsrc.to/embed/tv/{tmdb_id}/{season}/{episode}
+
+Auto switch episode dropdown for series
+
+Error fallback if video fails:
+
+html
+Copy
+Edit
+<div class="text-yellow-400 bg-black p-4 rounded">
+  ⚠️ Unable to load the stream. Please try again or check back later.
+</div>
+Optional: Retry button or suggest watching trailer
+
+🧩 5. Categories & Filtering
+Genre pages (use TMDb genre endpoints)
+
+Filter by year, popularity, rating
+
+Optional: Add "Top 100 of All Time", “New This Week”, or “Staff Picks”
+
+📱 6. Responsive UI
+Fully mobile-optimized
+
+Horizontal carousels switch to stacked layout on mobile
+
+Adaptive iframe scaling for embedded video
+
+🔐 No Login / No Ads
+Do not implement login or user accounts
+
+No ads, no popups, no external links
+
+Entire experience is frictionless and instant
+
+🔗 APIs to Use
+✅ TMDb API
+Base: https://api.themoviedb.org/3/
+
+API Key: 7f325eb836c6c510bab73c65fa33d484
+
+Use for: movie/TV metadata, search, cast, genres, reviews, trailers
+
+✅ VidSrc API (embedding only)
+Embed format:
+
+Movie: https://vidsrc.to/embed/movie/{tmdb_id}
+
+TV: https://vidsrc.to/embed/tv/{tmdb_id}/{season}/{episode}
+
+✅ StreamPe Custom API
+API Key: 4789fec446eaf7997af0
+
+Use for: internal analytics, fallback servers, recommended titles, possible future expansion (e.g., Telegram integration)
+
+⚙️ Tech Stack Recommendation
+Frontend:
+React.js (with Vite or Next.js)
+
+Tailwind CSS for styling
+
+Framer Motion for smooth animations
+
+React Router for navigation
+
+Backend (optional):
+Express.js (for proxying VidSrc, API key protection, etc.)
+
+MongoDB (optional: store viewed history, fallback streams)
+
+Hosting:
+Frontend: Vercel or Netlify
+
+Backend: Render or Railway (if needed)
+
+📌 Advanced UI Enhancements
+Glassmorphism cards for detail overlays
+
+Lazy load posters and trailers
+
+Skeleton loaders for smoother UX
+
+Auto-scroll to top on navigation
+
+Lightbox trailer viewer
+
+“Continue Watching” badge if cookies used
+
+📝 Summary Prompt for Developer
+Build a fast, public-access, premium streaming site called StreamPe, with an IMDb-inspired yellow/black UI. Use TMDb API (key: 7f325eb836c6c510bab73c65fa33d484) for content data and VidSrc embed links for full movie/TV streaming inside the site (no ads, no login). Add responsive design, modern UI with Tailwind CSS, movie details, search, genre filtering, and fallback error handling. Use StreamPe API (key: 4789fec446eaf7997af0) for advanced features. No authentication. No ads. Pure cinema.
