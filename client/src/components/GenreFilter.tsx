@@ -22,7 +22,7 @@ import {
   Lightbulb as LightbulbIcon,
   BookOpen as BookIcon
 } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'wouter';
 
 interface GenreFilterProps {
   mediaType: MediaType;
