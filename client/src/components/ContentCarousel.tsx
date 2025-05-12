@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Movie, TVShow } from '@/lib/types';
 import MovieCard from './MovieCard';
 import { motion } from 'framer-motion';
+import { SkeletonCard, SkeletonCarousel } from './SkeletonLoader';
 
 interface ContentCarouselProps {
   title: string;
@@ -38,21 +39,9 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
   
   if (isLoading) {
     return (
-      <section className="py-8">
+      <section className="py-6 sm:py-8">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6 flex items-center">
-            <span className="text-white">{title}</span>
-            {icon && <span className="ml-2 text-primary">{icon}</span>}
-          </h2>
-          
-          <div className="flex overflow-x-auto gap-4 pb-4">
-            {[...Array(6)].map((_, i) => (
-              <div 
-                key={i}
-                className="flex-shrink-0 w-[180px] h-[270px] bg-[#1f1f1f] rounded-lg animate-pulse"
-              />
-            ))}
-          </div>
+          <SkeletonCarousel count={upcomingStyle ? 12 : 8} />
         </div>
       </section>
     );

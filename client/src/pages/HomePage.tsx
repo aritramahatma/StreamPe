@@ -5,6 +5,7 @@ import ContentCarousel from '@/components/ContentCarousel';
 import GenreFilter from '@/components/GenreFilter';
 import { getTrending, getNowPlaying, getTopRated, getUpcoming, trackAnalytics } from '@/lib/api';
 import { Movie, TVShow } from '@/lib/types';
+import { SkeletonBanner, SkeletonCarousel, SkeletonGenres } from '@/components/SkeletonLoader';
 
 const HomePage: React.FC = () => {
   const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
@@ -29,10 +30,10 @@ const HomePage: React.FC = () => {
         
         // Fetch trending movies
         const trendingResponse = await getTrending('movie');
-        setTrendingMovies(trendingResponse.results);
+        setTrendingMovies(trendingResponse.results as Movie[]);
         
         // Pick a featured movie from trending
-        const featured = trendingResponse.results[0];
+        const featured = trendingResponse.results[0] as Movie;
         setFeaturedMovie(featured);
         
         setLoading(prev => ({ ...prev, featured: false, trending: false }));
@@ -44,7 +45,7 @@ const HomePage: React.FC = () => {
         
         // Fetch top rated movies
         const topRatedResponse = await getTopRated('movie');
-        setTopRated(topRatedResponse.results);
+        setTopRated(topRatedResponse.results as Movie[]);
         setLoading(prev => ({ ...prev, topRated: false }));
         
         // Fetch upcoming movies
@@ -74,31 +75,23 @@ const HomePage: React.FC = () => {
     <Layout fullWidth>
       {/* Hero Banner */}
       {loading.featured ? (
-        <div className="h-[70vh] md:h-[80vh] bg-gradient-to-t from-background to-[#1f1f1f] animate-pulse flex items-center justify-center">
-          <svg 
-            className="animate-spin text-primary" 
-            width="48" 
-            height="48" 
-            viewBox="0 0 24 24" 
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-          </svg>
-        </div>
+        <SkeletonBanner />
       ) : (
         featuredMovie && <HeroBanner media={featuredMovie} mediaType="movie" />
       )}
       
       {/* Genre Filter */}
-      <GenreFilter 
-        mediaType="movie"
-        selectedGenreId={selectedGenre} 
-        onGenreSelect={handleGenreSelect}
-      />
+      {loading.trending ? (
+        <div className="py-4 container mx-auto px-4">
+          <SkeletonGenres />
+        </div>
+      ) : (
+        <GenreFilter 
+          mediaType="movie"
+          selectedGenreId={selectedGenre} 
+          onGenreSelect={handleGenreSelect}
+        />
+      )}
       
       {/* Content Carousels */}
       <ContentCarousel 
