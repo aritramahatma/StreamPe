@@ -124,10 +124,9 @@ export function getVideoEmbedUrl(
   seasonNumber?: number,
   episodeNumber?: number
 ): string {
-  // Construct the embed URL with a more reliable streaming source
-  return `https://2embed.org/embed/${mediaType}/${tmdbId}${
+  return `https://vidsrc.me/embed/${mediaType === 'movie' ? 'movie' : 'tv'}?tmdb=${tmdbId}${
     mediaType === 'tv' && seasonNumber && episodeNumber
-      ? `/${seasonNumber}/${episodeNumber}`
+      ? `&season=${seasonNumber}&episode=${episodeNumber}`
       : ''
   }`;
 }
