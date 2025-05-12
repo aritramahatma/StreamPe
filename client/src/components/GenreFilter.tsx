@@ -150,13 +150,13 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
               .map((genre) => (
                 <motion.button 
                   key={genre.id}
-                  className={`px-4 py-3 ${selectedGenreId === genre.id ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} font-medium rounded-lg text-sm transition shadow-md flex items-center justify-center gap-2`}
+                  className={`p-3 ${selectedGenreId === genre.id ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} rounded-lg transition shadow-md flex items-center justify-center`}
                   onClick={() => onGenreSelect(genre.id)}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
+                  title={genre.name}
                 >
                   {getGenreIcon(genre.id)}
-                  <span>{genre.name}</span>
                 </motion.button>
               ))
             }
