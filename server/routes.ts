@@ -15,13 +15,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/tmdb/*', async (req, res) => {
     try {
       const path = req.path.replace('/api/tmdb/', '');
-      const queryString = new URLSearchParams(req.query as Record<string, string>).toString();
-      const url = `${TMDB_API_BASE_URL}/${path}?api_key=${TMDB_API_KEY}&${queryString}`;
+      const queryParams = new URLSearchParams(req.query as Record<string, string>);
+      
+      // Add API key to query parameters
+      queryParams.append('api_key', TMDB_API_KEY);
+      
+      const url = `${TMDB_API_BASE_URL}/${path}?${queryParams.toString()}`;
+      console.log("TMDb API request:", url);
       
       const response = await fetch(url);
       const data = await response.json();
       
       if (!response.ok) {
+        console.error("TMDb API error:", data);
         return res.status(response.status).json(data);
       }
       
@@ -64,9 +70,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // For this implementation, we'll just proxy to TMDb recommendations
       const url = `${TMDB_API_BASE_URL}/${mediaType}/${id}/recommendations?api_key=${TMDB_API_KEY}`;
+      console.log("Recommendations API request:", url);
       
       const response = await fetch(url);
-      const data = await response.json();
+      const data = await response.json() as { results: any[] };
       
       if (!response.ok) {
         return res.status(response.status).json(data);

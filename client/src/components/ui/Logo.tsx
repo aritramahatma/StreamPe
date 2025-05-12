@@ -15,7 +15,7 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', className = '' }) => {
 
   return (
     <Link href="/">
-      <a className={`flex items-center ${className}`}>
+      <div className={`flex items-center cursor-pointer ${className}`}>
         <h1 className={`text-primary font-montserrat font-bold ${fontSizes[size]} tracking-wider`}>
           STREAMPE
         </h1>
@@ -28,7 +28,7 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', className = '' }) => {
         >
           <path d="M8 5.14v14l11-7-11-7z" />
         </svg>
-      </a>
+      </div>
     </Link>
   );
 };
