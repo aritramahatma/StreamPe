@@ -66,7 +66,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background shadow-md">
-      <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex flex-wrap items-center justify-between">
         <Logo />
         
         <div className="hidden md:flex space-x-6 text-sm font-medium">
@@ -75,41 +75,32 @@ const Header: React.FC = () => {
               Home
             </div>
           </Link>
-          <Link href="/movies">
-            <div className={`transition cursor-pointer ${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+          <Link href="/category/movie">
+            <div className={`transition cursor-pointer ${location.includes('/category/movie') ? 'text-primary' : 'text-white hover:text-primary'}`}>
               Movies
             </div>
           </Link>
-          <Link href="/tv">
-            <div className={`transition cursor-pointer ${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+          <Link href="/category/tv">
+            <div className={`transition cursor-pointer ${location.includes('/category/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
               TV Shows
-            </div>
-          </Link>
-          <Link href="/trending">
-            <div className={`transition cursor-pointer ${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
-              New & Popular
-            </div>
-          </Link>
-          <Link href="/categories">
-            <div className={`transition cursor-pointer ${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
-              Categories
             </div>
           </Link>
         </div>
         
-        <div className="flex items-center space-x-4">
-          <div className="relative" ref={searchRef}>
+        <div className="flex items-center">
+          <div className="relative mr-2 sm:mr-4" ref={searchRef}>
             <input 
               type="text" 
-              placeholder="Search movies & TV..." 
-              className="bg-[#1f1f1f] rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-64"
+              placeholder="Search..." 
+              className="bg-[#1f1f1f] rounded-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary w-[140px] sm:w-64"
               value={searchQuery}
               onChange={handleSearchChange}
+              aria-label="Search movies and TV shows"
             />
             <svg
-              className="absolute left-3 top-2.5 text-[#e0e0e0]"
-              width="16"
-              height="16"
+              className="absolute left-2.5 sm:left-3 top-1.5 sm:top-2 text-[#e0e0e0]"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -132,12 +123,13 @@ const Header: React.FC = () => {
           </div>
           
           <button 
-            className="md:hidden text-white hover:text-primary"
+            className="md:hidden text-white hover:text-primary p-1"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -157,31 +149,30 @@ const Header: React.FC = () => {
       
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden px-4 py-3 bg-[#2a2a2a]">
-          <div className="flex flex-col space-y-3 text-sm">
+        <div className="md:hidden px-4 py-2 bg-[#181818] border-t border-[#2a2a2a]">
+          <div className="flex flex-col space-y-2">
             <Link href="/">
-              <div className={`cursor-pointer ${location === '/' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div 
+                className={`cursor-pointer py-2 px-3 rounded ${location === '/' ? 'text-primary bg-[#1f1f1f]' : 'text-white hover:bg-[#1f1f1f]'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Home
               </div>
             </Link>
-            <Link href="/movies">
-              <div className={`cursor-pointer ${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <Link href="/category/movie">
+              <div 
+                className={`cursor-pointer py-2 px-3 rounded ${location.includes('/category/movie') ? 'text-primary bg-[#1f1f1f]' : 'text-white hover:bg-[#1f1f1f]'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Movies
               </div>
             </Link>
-            <Link href="/tv">
-              <div className={`cursor-pointer ${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <Link href="/category/tv">
+              <div 
+                className={`cursor-pointer py-2 px-3 rounded ${location.includes('/category/tv') ? 'text-primary bg-[#1f1f1f]' : 'text-white hover:bg-[#1f1f1f]'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 TV Shows
-              </div>
-            </Link>
-            <Link href="/trending">
-              <div className={`cursor-pointer ${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
-                New & Popular
-              </div>
-            </Link>
-            <Link href="/categories">
-              <div className={`cursor-pointer ${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
-                Categories
               </div>
             </Link>
           </div>

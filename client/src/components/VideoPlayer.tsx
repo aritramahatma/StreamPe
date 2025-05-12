@@ -118,41 +118,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const episodeCount = currentSeasonData?.episode_count || 0;
 
   return (
-    <div className="fixed inset-0 bg-black z-50">
-      <div className="flex items-start justify-between p-4">
-        <div className="flex items-center">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col">
+      <div className="flex items-start justify-between p-2 sm:p-4">
+        <div className="flex items-center max-w-[70%]">
           <button 
-            className="text-white hover:text-primary p-2"
+            className="text-white hover:text-primary p-1 sm:p-2"
             onClick={handleGoBack}
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <h1 className="text-white font-medium ml-2">{title}</h1>
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <button 
-            className="text-white hover:text-primary"
-            onClick={() => {
-              const iframe = iframeRef.current;
-              if (iframe) {
-                // Request fullscreen for the iframe
-                if (iframe.requestFullscreen) {
-                  iframe.requestFullscreen();
-                }
-              }
-            }}
           >
             <svg
               width="20"
@@ -164,16 +135,47 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               strokeLinecap="round"
               strokeLinejoin="round"
             >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 className="text-white font-medium ml-2 text-sm sm:text-base truncate">{title}</h1>
+        </div>
+        
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          <button 
+            className="text-white hover:text-primary p-1 sm:p-2"
+            onClick={() => {
+              const iframe = iframeRef.current;
+              if (iframe) {
+                // Request fullscreen for the iframe
+                if (iframe.requestFullscreen) {
+                  iframe.requestFullscreen();
+                }
+              }
+            }}
+            aria-label="Fullscreen"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
             </svg>
           </button>
           <button 
-            className="text-white hover:text-primary"
+            className="text-white hover:text-primary p-1 sm:p-2"
             onClick={handleGoBack}
+            aria-label="Close"
           >
             <svg
-              width="24"
-              height="24"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -187,8 +189,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         </div>
       </div>
       
-      <div className="flex items-center justify-center h-[calc(100vh-80px)]">
-        <div className="w-full max-w-5xl aspect-video bg-background border border-[#1f1f1f] relative">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="w-full h-full sm:h-auto sm:max-w-5xl sm:aspect-video bg-background border border-[#1f1f1f] relative">
           {(loading || error) && (
             <div className="absolute inset-0 flex items-center justify-center">
               {loading && !error && (
@@ -275,14 +277,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       
       {/* TV show episode selection */}
       {mediaType === 'tv' && seasons.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-[#1f1f1f] p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-white font-semibold">Season {currentSeason}</h3>
-            <div className="relative">
+        <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-[#1f1f1f] p-3 sm:p-4 max-h-[30vh] overflow-y-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+            <h3 className="text-white font-semibold text-sm sm:text-base">Season {currentSeason}</h3>
+            <div className="relative w-full sm:w-auto">
               <select 
-                className="bg-[#1f1f1f] text-white py-2 pl-4 pr-10 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sm:w-auto bg-[#1f1f1f] text-white py-1.5 sm:py-2 pl-3 pr-8 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                 value={currentSeason}
                 onChange={handleSeasonChange}
+                aria-label="Select season"
               >
                 {seasons
                   .filter(season => season.season_number > 0) // Filter out specials
@@ -294,9 +297,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 }
               </select>
               <svg
-                className="absolute right-3 top-2.5 text-[#e0e0e0] pointer-events-none"
-                width="16"
-                height="16"
+                className="absolute right-2 top-2 text-[#e0e0e0] pointer-events-none"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -309,7 +312,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             </div>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
             {Array.from({ length: episodeCount }, (_, i) => i + 1).map(episode => (
               <button 
                 key={episode}
@@ -317,8 +320,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                   currentEpisode === episode 
                     ? 'bg-primary text-black font-medium' 
                     : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'
-                } rounded p-2 text-sm transition`}
+                } rounded p-1.5 text-xs sm:text-sm transition`}
                 onClick={() => handleEpisodeClick(episode)}
+                aria-label={`Episode ${episode}`}
               >
                 Ep {episode}
               </button>
