@@ -67,27 +67,32 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
           </button>
         </div>
         
-        <div className="flex flex-wrap gap-2">
-          <motion.button 
-            className={`px-4 py-2 ${!selectedGenreId ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} font-medium rounded-full text-sm transition`}
-            onClick={() => onGenreSelect(undefined)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            All
-          </motion.button>
-          
-          {genres.map((genre) => (
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2">
             <motion.button 
-              key={genre.id}
-              className={`px-4 py-2 ${selectedGenreId === genre.id ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} font-medium rounded-full text-sm transition`}
-              onClick={() => onGenreSelect(genre.id)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className={`px-4 py-2 ${!selectedGenreId ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} font-medium rounded-lg text-sm transition shadow-md`}
+              onClick={() => onGenreSelect(undefined)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
             >
-              {genre.name}
+              All Genres
             </motion.button>
-          ))}
+            
+            {genres
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((genre) => (
+                <motion.button 
+                  key={genre.id}
+                  className={`px-4 py-2 ${selectedGenreId === genre.id ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} font-medium rounded-lg text-sm transition shadow-md flex items-center justify-center`}
+                  onClick={() => onGenreSelect(genre.id)}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {genre.name}
+                </motion.button>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>

@@ -251,7 +251,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             src={videoSrc}
             className={`w-full h-full ${loading || error ? 'opacity-0' : 'opacity-100'}`}
             allowFullScreen
-            allow="autoplay; encrypted-media; picture-in-picture"
+            allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
+            loading="eager"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
           ></iframe>
         </div>
       </div>

@@ -82,7 +82,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ media, mediaType }) => {
           
           <div className="flex flex-wrap gap-4">
             <Link href={`/watch/${mediaType}/${media.id}`}>
-              <a className="flex items-center bg-primary hover:bg-opacity-80 text-black font-semibold px-6 py-3 rounded-md transition">
+              <div className="flex items-center bg-primary hover:bg-opacity-80 text-black font-semibold px-6 py-3 rounded-md transition cursor-pointer">
                 <svg 
                   className="mr-2" 
                   width="20" 
@@ -93,11 +93,11 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ media, mediaType }) => {
                   <path d="M8 5.14v14l11-7-11-7z" />
                 </svg>
                 Watch Now
-              </a>
+              </div>
             </Link>
             
             <Link href={`/${mediaType}/${media.id}`}>
-              <a className="flex items-center bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white px-6 py-3 rounded-md transition">
+              <div className="flex items-center bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white px-6 py-3 rounded-md transition cursor-pointer">
                 <svg 
                   className="mr-2" 
                   width="20" 
@@ -114,7 +114,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ media, mediaType }) => {
                   <line x1="8" y1="12" x2="16" y2="12" />
                 </svg>
                 More Info
-              </a>
+              </div>
             </Link>
           </div>
         </motion.div>

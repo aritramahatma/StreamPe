@@ -66,8 +66,14 @@ const MovieCard: React.FC<MovieCardProps> = ({
         <img 
           src={getPosterUrl(media.poster_path, size === 'large' ? 'large' : 'medium')} 
           alt={title}
-          className={`w-full ${heightClasses[size]} object-cover rounded-lg`}
+          className={`w-full ${heightClasses[size]} object-cover rounded-lg transform transition-transform duration-200`}
           loading="lazy"
+          decoding="async"
+          style={{ opacity: 0, transition: 'opacity 0.3s' }}
+          onLoad={(e) => {
+            e.currentTarget.classList.add('loaded');
+            e.currentTarget.style.opacity = '1';
+          }}
         />
         
         {showInfo && (

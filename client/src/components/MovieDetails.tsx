@@ -105,20 +105,20 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
       </div>
       
       <div className="p-6">
-        <div className="flex flex-wrap gap-4 mb-6">
+        <div className="flex flex-wrap gap-4 mb-8">
           <Link href={`/watch/${mediaType}/${media.id}${mediaType === 'tv' ? '/1/1' : ''}`}>
-            <a className="flex-1 bg-primary hover:bg-opacity-80 text-black font-semibold py-3 rounded-md transition flex items-center justify-center">
+            <div className="flex-1 bg-primary hover:bg-opacity-90 text-black font-semibold py-4 rounded-lg transition flex items-center justify-center shadow-lg transform hover:translate-y-[-2px]">
               <svg 
                 className="mr-2" 
-                width="20" 
-                height="20" 
+                width="24" 
+                height="24" 
                 viewBox="0 0 24 24" 
                 fill="currentColor"
               >
                 <path d="M8 5.14v14l11-7-11-7z" />
               </svg>
               Watch Now
-            </a>
+            </div>
           </Link>
           
           {trailerVideo && (
@@ -126,12 +126,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
               href={`https://www.youtube.com/watch?v=${trailerVideo.key}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white px-4 py-3 rounded-md transition"
+              className="flex items-center justify-center bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white px-6 py-4 rounded-lg transition shadow-lg transform hover:translate-y-[-2px]"
             >
               <svg 
                 className="mr-2" 
-                width="20" 
-                height="20" 
+                width="24" 
+                height="24" 
                 viewBox="0 0 24 24" 
                 fill="none"
                 stroke="currentColor"
@@ -142,14 +142,14 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
                 <circle cx="12" cy="12" r="10" />
                 <polygon points="10 8 16 12 10 16 10 8" />
               </svg>
-              Trailer
+              Watch Trailer
             </a>
           )}
         </div>
         
-        <div className="mb-8">
-          <h3 className="text-xl font-bold mb-3">Overview</h3>
-          <p className="text-[#e0e0e0]">
+        <div className="mb-8 bg-[#1a1a1a] p-5 rounded-lg shadow-lg">
+          <h3 className="text-xl font-bold mb-4 text-primary">Synopsis</h3>
+          <p className="text-[#e0e0e0] leading-relaxed">
             {media.overview}
           </p>
         </div>

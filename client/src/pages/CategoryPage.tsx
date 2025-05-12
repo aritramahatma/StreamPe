@@ -119,32 +119,48 @@ const CategoryPage: React.FC = () => {
           onGenreSelect={handleGenreSelect}
         />
         
-        <div className="flex flex-wrap gap-4 my-6">
-          <div className="flex items-center">
-            <label className="mr-2 text-[#e0e0e0]">Year:</label>
-            <select 
-              className="bg-[#1f1f1f] text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-              value={selectedYear || ''}
-              onChange={handleYearChange}
-            >
-              <option value="">All Years</option>
-              {getYearOptions().map(year => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="flex items-center">
-            <label className="mr-2 text-[#e0e0e0]">Sort By:</label>
-            <select 
-              className="bg-[#1f1f1f] text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-              value={sortBy}
-              onChange={handleSortChange}
-            >
-              <option value="popularity">Popularity</option>
-              <option value="vote_average">Rating</option>
-              <option value="release_date">Release Date</option>
-            </select>
+        <div className="bg-[#1a1a1a] rounded-lg p-5 shadow-lg my-6">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Filter Options</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col">
+              <label className="mb-2 text-[#e0e0e0] text-sm">Release Year</label>
+              <select 
+                className="bg-[#1f1f1f] text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333] shadow-inner"
+                value={selectedYear || ''}
+                onChange={handleYearChange}
+              >
+                <option value="">All Years</option>
+                {getYearOptions().map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="mb-2 text-[#e0e0e0] text-sm">Sort Results By</label>
+              <select 
+                className="bg-[#1f1f1f] text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333] shadow-inner"
+                value={sortBy}
+                onChange={handleSortChange}
+              >
+                <option value="popularity">Popularity</option>
+                <option value="vote_average">Rating (High to Low)</option>
+                <option value="release_date">Release Date (Newest)</option>
+              </select>
+            </div>
+            
+            <div className="flex items-end">
+              <button 
+                onClick={() => {
+                  setSelectedYear(undefined);
+                  setSortBy('popularity');
+                  setSelectedGenre(undefined);
+                }}
+                className="bg-[#2a2a2a] hover:bg-[#333] text-white py-3 px-4 rounded-lg transition w-full"
+              >
+                Reset Filters
+              </button>
+            </div>
           </div>
         </div>
         
