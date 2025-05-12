@@ -124,11 +124,12 @@ export function getVideoEmbedUrl(
   seasonNumber?: number,
   episodeNumber?: number
 ): string {
-  const baseUrl = 'https://2embed.org/embed';
+  const apiKey = '4789fec446eaf7997af0';
+  const baseUrl = 'https://vidsrc.xyz/embed/';
   if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `${baseUrl}/series?tmdb=${tmdbId}&sea=${seasonNumber}&epi=${episodeNumber}`;
+    return `${baseUrl}${mediaType}/${tmdbId}?key=${apiKey}&season=${seasonNumber}&episode=${episodeNumber}`;
   }
-  return `${baseUrl}/movie?tmdb=${tmdbId}`;
+  return `${baseUrl}${mediaType}/${tmdbId}?key=${apiKey}`;
 }
 
 // Movie image URLs
