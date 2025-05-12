@@ -61,8 +61,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             
             return (
               <Link key={item.id} href={`/${mediaType}/${item.id}`}>
-                <a 
-                  className="flex bg-[#1f1f1f] rounded-lg overflow-hidden hover:bg-[#2a2a2a] transition"
+                <div 
+                  className="flex bg-[#1f1f1f] rounded-lg overflow-hidden hover:bg-[#2a2a2a] transition cursor-pointer"
                   onClick={onResultClick}
                 >
                   <img 
@@ -93,7 +93,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                       {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)}
                     </p>
                   </div>
-                </a>
+                </div>
               </Link>
             );
           })}

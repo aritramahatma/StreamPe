@@ -119,10 +119,13 @@ export const getRecommendations = async (mediaType: MediaType, mediaId: number):
 
 // Video source URLs
 export const getVideoEmbedUrl = (mediaType: MediaType, tmdbId: number, seasonNumber?: number, episodeNumber?: number): string => {
+  // Using StreamPe key for VidSrc Pro API
+  const apiKey = '4789fec446eaf7997af0';
+  
   if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `https://vidsrc.to/embed/tv/${tmdbId}/${seasonNumber}/${episodeNumber}`;
+    return `https://vidsrc.xyz/embed/tv?tmdb=${tmdbId}&season=${seasonNumber}&episode=${episodeNumber}&key=${apiKey}`;
   }
-  return `https://vidsrc.to/embed/movie/${tmdbId}`;
+  return `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}&key=${apiKey}`;
 };
 
 // Movie image URLs

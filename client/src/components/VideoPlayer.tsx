@@ -45,14 +45,25 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     setError(false);
     setLoading(true);
     
+    // Set a timeout to detect loading issues
+    const loadingTimeout = setTimeout(() => {
+      // If still loading after timeout, show error
+      if (loading) {
+        setLoading(false);
+        setError(true);
+      }
+    }, 15000); // 15 seconds timeout
+    
     // Handle iframe load/error events
     const iframe = iframeRef.current;
     if (iframe) {
       const handleLoad = () => {
+        clearTimeout(loadingTimeout);
         setLoading(false);
       };
       
       const handleError = () => {
+        clearTimeout(loadingTimeout);
         setLoading(false);
         setError(true);
       };
@@ -61,11 +72,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       iframe.addEventListener('error', handleError);
       
       return () => {
+        clearTimeout(loadingTimeout);
         iframe.removeEventListener('load', handleLoad);
         iframe.removeEventListener('error', handleError);
       };
     }
-  }, [videoSrc, mediaType, tmdbId]);
+    
+    // Clean up timeout
+    return () => clearTimeout(loadingTimeout);
+  }, [videoSrc, mediaType, tmdbId, loading]);
   
   const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSeason = parseInt(e.target.value);
@@ -236,9 +251,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                       Retry
                     </button>
                     <Link href={`/${mediaType}/${tmdbId}`}>
-                      <a className="bg-primary px-4 py-2 rounded text-black font-medium hover:bg-opacity-90 transition">
+                      <div className="bg-primary px-4 py-2 rounded text-black font-medium hover:bg-opacity-90 transition cursor-pointer">
                         Watch Trailer
-                      </a>
+                      </div>
                     </Link>
                   </div>
                 </div>

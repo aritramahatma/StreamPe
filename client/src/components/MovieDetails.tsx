@@ -107,9 +107,9 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
       <div className="p-6">
         <div className="flex flex-wrap gap-4 mb-8">
           <Link href={`/watch/${mediaType}/${media.id}${mediaType === 'tv' ? '/1/1' : ''}`}>
-            <div className="flex-1 bg-primary hover:bg-opacity-90 text-black font-semibold py-4 rounded-lg transition flex items-center justify-center shadow-lg transform hover:translate-y-[-2px]">
+            <div className="flex-1 bg-primary hover:bg-opacity-90 text-black font-semibold py-4 px-6 rounded-lg transition flex items-center justify-center shadow-lg transform hover:translate-y-[-2px]">
               <svg 
-                className="mr-2" 
+                className="mr-3" 
                 width="24" 
                 height="24" 
                 viewBox="0 0 24 24" 
@@ -117,7 +117,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
               >
                 <path d="M8 5.14v14l11-7-11-7z" />
               </svg>
-              Watch Now
+              <span className="inline-block">Watch Now</span>
             </div>
           </Link>
           
