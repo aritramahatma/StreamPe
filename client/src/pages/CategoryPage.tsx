@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRoute, useLocation } from 'wouter';
+import { Filter as FilterIcon } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Layout from '@/components/Layout';
 import MovieCard from '@/components/MovieCard';
 import GenreFilter from '@/components/GenreFilter';
@@ -123,49 +131,58 @@ const CategoryPage: React.FC = () => {
           onGenreSelect={handleGenreSelect}
         />
         
-        <div className="bg-[#1a1a1a] rounded-lg p-5 shadow-lg my-6">
-          <h3 className="text-lg font-semibold mb-4 text-primary">Filter Options</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="flex flex-col">
-              <label className="mb-2 text-[#e0e0e0] text-sm">Release Year</label>
-              <select 
-                className="bg-[#1f1f1f] text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333] shadow-inner"
-                value={selectedYear || ''}
-                onChange={handleYearChange}
-              >
-                <option value="">All Years</option>
-                {getYearOptions().map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="flex flex-col">
-              <label className="mb-2 text-[#e0e0e0] text-sm">Sort Results By</label>
-              <select 
-                className="bg-[#1f1f1f] text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333] shadow-inner"
-                value={sortBy}
-                onChange={handleSortChange}
-              >
-                <option value="popularity">Popularity</option>
-                <option value="vote_average">Rating (High to Low)</option>
-                <option value="release_date">Release Date (Newest)</option>
-              </select>
-            </div>
-            
-            <div className="flex items-end">
-              <button 
-                onClick={() => {
-                  setSelectedYear(undefined);
-                  setSortBy('popularity');
-                  setSelectedGenre(undefined);
-                }}
-                className="bg-[#2a2a2a] hover:bg-[#333] text-white py-3 px-4 rounded-lg transition w-full"
-              >
-                Reset Filters
+        <div className="flex justify-end mb-6">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white py-2 px-4 rounded-lg transition">
+                <FilterIcon size={18} />
+                <span>Filters</span>
               </button>
-            </div>
-          </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333]">
+              <DropdownMenuLabel>Filter Options</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <div className="p-3">
+                <div className="mb-4">
+                  <label className="text-sm text-[#e0e0e0] mb-2 block">Release Year</label>
+                  <select 
+                    className="w-full bg-[#1f1f1f] text-white py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333]"
+                    value={selectedYear || ''}
+                    onChange={handleYearChange}
+                  >
+                    <option value="">All Years</option>
+                    {getYearOptions().map(year => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="mb-4">
+                  <label className="text-sm text-[#e0e0e0] mb-2 block">Sort Results By</label>
+                  <select 
+                    className="w-full bg-[#1f1f1f] text-white py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary border border-[#333]"
+                    value={sortBy}
+                    onChange={handleSortChange}
+                  >
+                    <option value="popularity">Popularity</option>
+                    <option value="vote_average">Rating (High to Low)</option>
+                    <option value="release_date">Release Date (Newest)</option>
+                  </select>
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    setSelectedYear(undefined);
+                    setSortBy('popularity');
+                    setSelectedGenre(undefined);
+                  }}
+                  className="w-full bg-[#2a2a2a] hover:bg-[#333] text-white py-2 px-3 rounded-lg transition"
+                >
+                  Reset Filters
+                </button>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         
         {loading ? (
