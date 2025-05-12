@@ -124,11 +124,11 @@ export function getVideoEmbedUrl(
   seasonNumber?: number,
   episodeNumber?: number
 ): string {
-  const baseUrl = 'https://multiembed.mov';
+  const baseUrl = 'https://vidsrc.to/embed';
   if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `${baseUrl}/tv/watch-${tmdbId}-${seasonNumber}-${episodeNumber}`;
+    return `${baseUrl}/tv?tmdb=${tmdbId}&season=${seasonNumber}&episode=${episodeNumber}`;
   }
-  return `${baseUrl}/movie/watch-${tmdbId}`;
+  return `${baseUrl}/movie?tmdb=${tmdbId}`;
 }
 
 // Movie image URLs
