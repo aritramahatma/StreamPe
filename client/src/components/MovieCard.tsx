@@ -62,7 +62,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
 
   return (
     <Link href={`/${mediaType}/${media.id}`}>
-      <a className={`movie-card relative flex-shrink-0 ${sizeClasses[size]} card-hover block`}>
+      <div className={`movie-card relative flex-shrink-0 ${sizeClasses[size]} card-hover block cursor-pointer`}>
         <img 
           src={getPosterUrl(media.poster_path, size === 'large' ? 'large' : 'medium')} 
           alt={title}
@@ -112,7 +112,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
             </button>
           </motion.div>
         )}
-      </a>
+      </div>
     </Link>
   );
 };

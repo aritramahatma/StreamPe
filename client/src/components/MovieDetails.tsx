@@ -189,7 +189,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ media, mediaType }) => {
                           {Array.from({ length: 5 }, (_, i) => (
                             <svg 
                               key={i}
-                              className={i < Math.floor(review.author_details.rating / 2) ? 'text-primary' : 'text-[#e0e0e0]'}
+                              className={i < Math.floor((review.author_details?.rating ?? 0) / 2) ? 'text-primary' : 'text-[#e0e0e0]'}
                               width="16" 
                               height="16" 
                               viewBox="0 0 24 24" 
