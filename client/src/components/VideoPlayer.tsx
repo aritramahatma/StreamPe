@@ -52,7 +52,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         setLoading(false);
         setError(true);
       }
-    }, 15000); // 15 seconds timeout
+    }, 8000); // 8 seconds timeout
     
     // Handle iframe load/error events
     const iframe = iframeRef.current;
