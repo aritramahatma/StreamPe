@@ -71,29 +71,29 @@ const Header: React.FC = () => {
         
         <div className="hidden md:flex space-x-6 text-sm font-medium">
           <Link href="/">
-            <a className={`transition ${location === '/' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <div className={`transition cursor-pointer ${location === '/' ? 'text-primary' : 'text-white hover:text-primary'}`}>
               Home
-            </a>
+            </div>
           </Link>
           <Link href="/movies">
-            <a className={`transition ${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <div className={`transition cursor-pointer ${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
               Movies
-            </a>
+            </div>
           </Link>
           <Link href="/tv">
-            <a className={`transition ${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <div className={`transition cursor-pointer ${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
               TV Shows
-            </a>
+            </div>
           </Link>
           <Link href="/trending">
-            <a className={`transition ${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <div className={`transition cursor-pointer ${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
               New & Popular
-            </a>
+            </div>
           </Link>
           <Link href="/categories">
-            <a className={`transition ${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+            <div className={`transition cursor-pointer ${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
               Categories
-            </a>
+            </div>
           </Link>
         </div>
         
@@ -160,29 +160,29 @@ const Header: React.FC = () => {
         <div className="md:hidden px-4 py-3 bg-[#2a2a2a]">
           <div className="flex flex-col space-y-3 text-sm">
             <Link href="/">
-              <a className={`${location === '/' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div className={`cursor-pointer ${location === '/' ? 'text-primary' : 'text-white hover:text-primary'}`}>
                 Home
-              </a>
+              </div>
             </Link>
             <Link href="/movies">
-              <a className={`${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div className={`cursor-pointer ${location.startsWith('/movies') ? 'text-primary' : 'text-white hover:text-primary'}`}>
                 Movies
-              </a>
+              </div>
             </Link>
             <Link href="/tv">
-              <a className={`${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div className={`cursor-pointer ${location.startsWith('/tv') ? 'text-primary' : 'text-white hover:text-primary'}`}>
                 TV Shows
-              </a>
+              </div>
             </Link>
             <Link href="/trending">
-              <a className={`${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div className={`cursor-pointer ${location === '/trending' ? 'text-primary' : 'text-white hover:text-primary'}`}>
                 New & Popular
-              </a>
+              </div>
             </Link>
             <Link href="/categories">
-              <a className={`${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
+              <div className={`cursor-pointer ${location === '/categories' ? 'text-primary' : 'text-white hover:text-primary'}`}>
                 Categories
-              </a>
+              </div>
             </Link>
           </div>
         </div>

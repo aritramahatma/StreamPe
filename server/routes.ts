@@ -14,12 +14,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // TMDb API proxy endpoints
   app.use('/api/tmdb/*', async (req, res) => {
     try {
+      // Get the path after /api/tmdb/
       const path = req.path.replace('/api/tmdb/', '');
+      
+      // Make sure path is not empty
+      if (!path) {
+        return res.status(400).json({ message: "Invalid TMDb API endpoint" });
+      }
+      
+      // Get query parameters
       const queryParams = new URLSearchParams(req.query as Record<string, string>);
       
       // Add API key to query parameters
       queryParams.append('api_key', TMDB_API_KEY);
       
+      // Construct URL (without double slashes)
       const url = `${TMDB_API_BASE_URL}/${path}?${queryParams.toString()}`;
       console.log("TMDb API request:", url);
       
