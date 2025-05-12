@@ -14,7 +14,7 @@ const CastList: React.FC<CastListProps> = ({ cast }) => {
   return (
     <div className="mb-8">
       <h3 className="text-xl font-bold mb-4">Cast</h3>
-      <div className="flex overflow-x-auto gap-4 pb-2 carousel">
+      <div className="flex overflow-x-auto gap-4 pb-2 carousel scrollbar-thin scrollbar-thumb-primary scrollbar-track-[#1f1f1f]">
         {cast.map((actor) => (
           <div key={actor.id} className="flex-shrink-0 w-24">
             <img 
