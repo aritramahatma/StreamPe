@@ -12,10 +12,13 @@ const TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // TMDb API proxy endpoints
-  app.use('/api/tmdb/*', async (req, res) => {
+  app.use('/api/tmdb', async (req, res) => {
     try {
-      // Get the path after /api/tmdb/
-      const path = req.path.replace('/api/tmdb/', '');
+      // Get the path after /api/tmdb
+      let path = req.url.split('?')[0];
+      if (path.startsWith('/')) {
+        path = path.substring(1);
+      }
       
       // Make sure path is not empty
       if (!path) {
@@ -23,12 +26,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get query parameters
-      const queryParams = new URLSearchParams(req.query as Record<string, string>);
+      const queryString = req.url.includes('?') ? req.url.split('?')[1] : '';
+      const queryParams = new URLSearchParams(queryString);
       
       // Add API key to query parameters
       queryParams.append('api_key', TMDB_API_KEY);
       
-      // Construct URL (without double slashes)
+      // Construct URL
       const url = `${TMDB_API_BASE_URL}/${path}?${queryParams.toString()}`;
       console.log("TMDb API request:", url);
       

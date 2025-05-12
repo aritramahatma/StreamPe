@@ -11,16 +11,16 @@ const Footer: React.FC = () => {
           
           <div className="flex space-x-6">
             <Link href="/movies">
-              <a className="text-[#e0e0e0] hover:text-primary transition">Movies</a>
+              <div className="text-[#e0e0e0] hover:text-primary transition cursor-pointer">Movies</div>
             </Link>
             <Link href="/tv">
-              <a className="text-[#e0e0e0] hover:text-primary transition">TV Shows</a>
+              <div className="text-[#e0e0e0] hover:text-primary transition cursor-pointer">TV Shows</div>
             </Link>
             <Link href="/categories">
-              <a className="text-[#e0e0e0] hover:text-primary transition">Genres</a>
+              <div className="text-[#e0e0e0] hover:text-primary transition cursor-pointer">Genres</div>
             </Link>
             <Link href="/about">
-              <a className="text-[#e0e0e0] hover:text-primary transition">About</a>
+              <div className="text-[#e0e0e0] hover:text-primary transition cursor-pointer">About</div>
             </Link>
           </div>
         </div>
