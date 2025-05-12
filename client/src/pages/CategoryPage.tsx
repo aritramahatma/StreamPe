@@ -11,7 +11,11 @@ const CategoryPage: React.FC = () => {
   const [, setLocation] = useLocation();
   
   const mediaType: MediaType = (params?.mediaType as MediaType) || 'movie';
-  const [selectedGenre, setSelectedGenre] = useState<number | undefined>();
+  const [location] = useLocation();
+  const genreParam = new URLSearchParams(location.split('?')[1]).get('genre');
+  const [selectedGenre, setSelectedGenre] = useState<number | undefined>(
+    genreParam ? parseInt(genreParam) : undefined
+  );
   const [selectedYear, setSelectedYear] = useState<number | undefined>();
   const [sortBy, setSortBy] = useState<FilterOptions['sortBy']>('popularity');
   

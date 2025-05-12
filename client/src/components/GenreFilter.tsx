@@ -22,6 +22,7 @@ import {
   Lightbulb as LightbulbIcon,
   BookOpen as BookIcon
 } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 interface GenreFilterProps {
   mediaType: MediaType;
@@ -36,7 +37,8 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
 }) => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [, setLocation] = useLocation(); // Added useLocation hook
+
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -49,9 +51,17 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         setIsLoading(false);
       }
     };
-    
+
     fetchGenres();
   }, [mediaType]);
+
+  const handleGenreSelect = (genreId?: number) => {
+    onGenreSelect(genreId);
+    if (genreId) {
+      setLocation(`/categories/${mediaType}?genre=${genreId}`);
+    }
+  };
+
 
   if (isLoading) {
     return (
@@ -60,7 +70,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-white">Browse by Genre</h2>
           </div>
-          
+
           <div className="flex flex-wrap gap-2">
             {[...Array(8)].map((_, i) => (
               <div 
@@ -132,7 +142,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
             View All
           </button>
         </div>
-        
+
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
             <motion.button 
@@ -144,14 +154,14 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
               <FilmIcon size={18} />
               <span>All Genres</span>
             </motion.button>
-            
+
             {genres
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((genre) => (
                 <motion.button 
                   key={genre.id}
                   className={`p-3 ${selectedGenreId === genre.id ? 'bg-primary text-black' : 'bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white'} rounded-lg transition shadow-md flex items-center justify-center`}
-                  onClick={() => onGenreSelect(genre.id)}
+                  onClick={() => handleGenreSelect(genre.id)}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   title={genre.name}
