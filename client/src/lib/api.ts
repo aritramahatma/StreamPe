@@ -80,11 +80,11 @@ export const getGenres = async (mediaType: MediaType = 'movie'): Promise<{ genre
 
 export const discoverMedia = async (mediaType: MediaType, options: Partial<FilterOptions> = {}): Promise<MovieResponse | TVResponse> => {
   const params = new URLSearchParams();
-  
+
   if (options.sortBy) {
     params.append('sort_by', options.sortBy === 'release_date' ? 'primary_release_date.desc' : `${options.sortBy}.desc`);
   }
-  
+
   if (options.year) {
     if (mediaType === 'movie') {
       params.append('primary_release_year', options.year.toString());
@@ -92,11 +92,11 @@ export const discoverMedia = async (mediaType: MediaType, options: Partial<Filte
       params.append('first_air_date_year', options.year.toString());
     }
   }
-  
+
   if (options.genres && options.genres.length > 0) {
     params.append('with_genres', options.genres.join(','));
   }
-  
+
   const response = await fetch(`${TMDB_API_URL}/discover/${mediaType}?${params.toString()}`);
   return handleResponse<MovieResponse | TVResponse>(response);
 };
@@ -118,36 +118,42 @@ export const getRecommendations = async (mediaType: MediaType, mediaId: number):
 };
 
 // Video source URLs
-export const getVideoEmbedUrl = (mediaType: MediaType, tmdbId: number, seasonNumber?: number, episodeNumber?: number): string => {
-  // Using faster embed method for quicker loading
-  if (mediaType === 'tv' && seasonNumber !== undefined && episodeNumber !== undefined) {
-    return `https://vidsrc.to/embed/tv/${tmdbId}/${seasonNumber}/${episodeNumber}`;
-  }
-  return `https://vidsrc.to/embed/movie/${tmdbId}`;
-};
+export function getVideoEmbedUrl(
+  mediaType: MediaType,
+  tmdbId: number,
+  seasonNumber?: number,
+  episodeNumber?: number
+): string {
+  // Construct the embed URL with a more reliable streaming source
+  return `https://2embed.org/embed/${mediaType}/${tmdbId}${
+    mediaType === 'tv' && seasonNumber && episodeNumber
+      ? `/${seasonNumber}/${episodeNumber}`
+      : ''
+  }`;
+}
 
 // Movie image URLs
 export const getPosterUrl = (path: string | null, size: 'small' | 'medium' | 'large' = 'medium'): string => {
   if (!path) return 'https://via.placeholder.com/300x450?text=No+Image';
-  
+
   const sizes = {
     small: 'w185',
     medium: 'w342',
     large: 'w500'
   };
-  
+
   return `https://image.tmdb.org/t/p/${sizes[size]}${path}`;
 };
 
 export const getBackdropUrl = (path: string | null, size: 'small' | 'medium' | 'large' = 'large'): string => {
   if (!path) return 'https://via.placeholder.com/1280x720?text=No+Image';
-  
+
   const sizes = {
     small: 'w780',
     medium: 'w1280',
     large: 'original'
   };
-  
+
   return `https://image.tmdb.org/t/p/${sizes[size]}${path}`;
 };
 
