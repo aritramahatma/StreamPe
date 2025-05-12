@@ -5,6 +5,7 @@ import MovieDetails from '@/components/MovieDetails';
 import ContentCarousel from '@/components/ContentCarousel';
 import { getMovieDetails, getRecommendations, trackAnalytics } from '@/lib/api';
 import { Movie } from '@/lib/types';
+import { SkeletonDetails, SkeletonCarousel } from '@/components/SkeletonLoader';
 
 const MoviePage: React.FC = () => {
   const [, params] = useRoute('/movie/:id');
@@ -50,21 +51,13 @@ const MoviePage: React.FC = () => {
   
   if (loading) {
     return (
-      <Layout>
-        <div className="min-h-screen flex items-center justify-center">
-          <svg 
-            className="animate-spin text-primary" 
-            width="48" 
-            height="48" 
-            viewBox="0 0 24 24" 
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-          </svg>
+      <Layout fullWidth>
+        <div className="mb-10">
+          <SkeletonDetails />
+        </div>
+        
+        <div className="container mx-auto px-4">
+          <SkeletonCarousel count={8} />
         </div>
       </Layout>
     );
